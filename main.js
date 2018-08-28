@@ -10,9 +10,9 @@ var questionDiv = document.createElement("div");
 questionDiv.className = 'question';
 
 // make a blank storage zone
-var stored = {};
-stored[key] = JSON.stringify({});
-storage.set(stored);
+//var stored = {};
+//stored[key] = JSON.stringify({});
+//storage.set(stored);
 
 var pledgeIncrement = 0.2;//20 pence
 var pledgePaymentThreshold = 2;//£2.00
@@ -55,16 +55,17 @@ function updateTotals() {
     storage.get(key, function (stored) {
         var clicks = JSON.parse(stored[key]);
         console.log("hi", clicks);
+        var ourclicks = clicks[id] ? clicks[id] : 0;
         var total = Object.values(clicks).reduce(function (a, b) { return a + b}, 0);
 
-        if (clicks[id] * pledgeIncrement >= pledgePaymentThreshold) {
+        if (total * pledgeIncrement >= pledgePaymentThreshold) {
             Array.prototype.forEach.call(document.getElementsByClassName('js-thanks'), function (answer) {
                 answer.style.display = 'block';
             });
         }
 
         Array.prototype.forEach.call(document.getElementsByClassName('js-totals'), function (answer) {
-            answer.textContent = "you have pledged "+clicks[id] + " times to this article and " + total + " overall";
+            answer.textContent = "you have pledged "+ourclicks + " times to this article and " + total + " overall";
         });
 
     });
