@@ -27,8 +27,7 @@ function add(clazz, text) {
     return question;
 }
 
-function answer(text) {
-    var link = document.createElement("a");
+function answer(link) {
     link.className = 'question__answer js-answer';
 
     link.addEventListener('click', function () {
@@ -46,16 +45,13 @@ function answer(text) {
             });
 
             Array.prototype.forEach.call(document.getElementsByClassName('js-thanks-text'), function (answer) {
-                answer.textContent = "hohohoho";
+                answer.textContent = "hohohoho "+stored;
             });
 
             chrome.storage.local.get(function(data) {console.log(data);});
         });
         chrome.storage.local.get(function(data) {console.log(data);});
     });
-
-    var linkText = document.createTextNode(text);
-    link.appendChild(linkText);
 
     return link;
 }
@@ -82,16 +78,15 @@ function addButton() {
     roundel.className = 'roundel_button';
     roundel.src = chrome.extension.getURL("Guardian_roundel_black.png");
 
+    answer(roundel);
+
     return roundel;
 }
 
 var questionData = questions[id];
 
+questionDiv.appendChild(add('question__text', "Click the G if you feel this article was worthwhile"));
 questionDiv.appendChild(addButton());
-questionDiv.appendChild(add('question__text', questionData.question));
-questionData.answers.forEach(function (answerText) {
-    questionDiv.appendChild(answer(answerText));
-});
 questionDiv.appendChild(addThanks('question__thanks__wrapper js-thanks', "thanks!!!"));
 
 articleBody.appendChild(questionDiv);
