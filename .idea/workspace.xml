@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a607505a-ce96-4770-8e09-4f88f2095d52" name="Default" comment="total up starting with the first page load, and work on every page on eht site">
+    <list default="true" id="a607505a-ce96-4770-8e09-4f88f2095d52" name="Default" comment="make the pledge amount used in the link and also clear the total after linking">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/main.js" afterDir="false" />
     </list>
     <ignored path="article-questions.iws" />
@@ -45,18 +47,18 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="106" />
-          <entry key="js" value="720" />
+          <entry key="css" value="130" />
+          <entry key="js" value="1684" />
           <entry key="json" value="78" />
-          <entry key="txt" value="349" />
+          <entry key="txt" value="467" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="106" />
+          <entry key="CSS" value="130" />
           <entry key="JSON" value="78" />
-          <entry key="JavaScript" value="720" />
-          <entry key="PLAIN_TEXT" value="349" />
+          <entry key="JavaScript" value="1684" />
+          <entry key="PLAIN_TEXT" value="467" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open" />
@@ -69,11 +71,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="157">
-              <caret line="24" column="49" lean-forward="true" selection-start-line="24" selection-start-column="49" selection-end-line="24" selection-end-column="49" />
+            <state relative-caret-position="203">
+              <caret line="156" column="74" selection-start-line="156" selection-start-column="74" selection-end-line="156" selection-end-column="74" />
             </state>
           </provider>
         </entry>
@@ -87,11 +89,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="364">
-              <caret line="28" column="43" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="43" />
+            <state relative-caret-position="182">
+              <caret line="14" column="10" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -132,9 +134,9 @@
       <list>
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/manifest.json" />
-        <option value="$PROJECT_DIR$/main.css" />
         <option value="$PROJECT_DIR$/questions.js" />
         <option value="$PROJECT_DIR$/main.js" />
+        <option value="$PROJECT_DIR$/main.css" />
       </list>
     </option>
   </component>
@@ -418,7 +420,9 @@
     <MESSAGE value="make the g logo round and clickable" />
     <MESSAGE value="total up the number of clicks" />
     <MESSAGE value="total up starting with the first page load, and work on every page on eht site" />
-    <option name="LAST_COMMIT_MESSAGE" value="total up starting with the first page load, and work on every page on eht site" />
+    <MESSAGE value="use the total to get people to contr" />
+    <MESSAGE value="make the pledge amount used in the link and also clear the total after linking" />
+    <option name="LAST_COMMIT_MESSAGE" value="make the pledge amount used in the link and also clear the total after linking" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/README.md">
@@ -441,13 +445,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="28" column="43" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/questions.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="143">
@@ -457,8 +454,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="24" column="49" lean-forward="true" selection-start-line="24" selection-start-column="49" selection-end-line="24" selection-end-column="49" />
+        <state relative-caret-position="203">
+          <caret line="156" column="74" selection-start-line="156" selection-start-column="74" selection-end-line="156" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="14" column="10" selection-start-line="14" selection-start-column="10" selection-end-line="14" selection-end-column="10" />
         </state>
       </provider>
     </entry>

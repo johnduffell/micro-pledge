@@ -1,7 +1,9 @@
 var storage = chrome.storage.local;
 //
 
-var key = 'JOHN';
+var key = 'myPledges';
+
+var okey = 'othersPledges';
 
 var id = document.location.pathname;
 
@@ -35,7 +37,7 @@ function addPledge(roundel) {
 
     roundel.addEventListener('click', function () {
         storage.get(key, function (stored) {
-            var clicks = JSON.parse(stored[key]);
+            var clicks = stored[key] ? JSON.parse(stored[key]) : {};
             console.log("hi1", clicks);
             clicks[id] = clicks[id] ? clicks[id] + 1 : 1;
             console.log("hi2", clicks);
@@ -52,8 +54,8 @@ function addPledge(roundel) {
 }
 
 function updateTotals() {
-    storage.get(key, function (stored) {
-        var clicks = JSON.parse(stored[key]);
+    storage.get([key, okey], function (stored) {
+        var clicks = stored[key] ? JSON.parse(stored[key]) : {};
         console.log("hi", clicks);
         var ourclicks = clicks[id] ? clicks[id] : 0;
         var total = Object.values(clicks).reduce(function (a, b) { return a + b}, 0);
@@ -62,16 +64,22 @@ function updateTotals() {
             Array.prototype.forEach.call(document.getElementsByClassName('js-thanks'), function (answer) {
                 answer.style.display = 'block';
                 // make the amount spot on rather than just 2 pounts
-                answer['amount'] = total * pledgeIncrement
+                answer['amount'] = (total * pledgeIncrement).toFixed(2)
             });
         }
 
+        var otherclicks = stored[okey] ? JSON.parse(stored[okey]) : 0;
         Array.prototype.forEach.call(document.getElementsByClassName('js-totals'), function (answer) {
-            answer.textContent = "you have pledged "+ourclicks + " times to this article and " + total + " overall";
+            answer.textContent = "you have pledged "+renderAmount(ourclicks) + " to this article and "
+                + renderAmount(total) + " overall.  Overall pledges is " + renderAmount(otherclicks);
         });
 
     });
 
+}
+
+function renderAmount(clicks) {
+    return "£" + (clicks * pledgeIncrement).toFixed(2)
 }
 
 function addThanks(clazz, text) {
@@ -84,9 +92,10 @@ function addThanks(clazz, text) {
         location.href = 'https://support.theguardian.com/contribute/one-off?contributionValue='+wrap['amount']+'&contribType=ONE_OFF&currency=GBP';
 
         // make a blank storage zone
-        var stored = {};
-        stored[key] = JSON.stringify({});
-        storage.set(stored);
+        storage.get(key, function (stored) {
+            stored[key] = JSON.stringify({});
+            storage.set(stored);
+        });
 
         event.preventDefault()
     });
@@ -104,8 +113,7 @@ function addTotals(clazz, text) {
     var wrap = document.createElement('div');
     wrap.className = clazz;
 
-    var why = document.createElement('a');
-    why.href = 'http://membership.theguardian.com/';
+    var why = document.createElement('p');
 
     var whyText = document.createTextNode(text);
     why.className = 'question__totals js-totals';
@@ -127,14 +135,37 @@ function addButton() {
     return roundel;
 }
 
-questionDiv.appendChild(add('mp-support', "Show your support for this article"));
-questionDiv.appendChild(add('mp-support2', "Click to pledge a contribution. £0.20 for each click"));
-questionDiv.appendChild(add('mp-support3', "We'll ask for payment, for you total pledge, at the end of the month"));
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+
+function addPledgeFromOthers(number) {
+
+    storage.get(okey, function (stored) {
+        var clicks = stored[okey];
+        console.log("OTHERS1", clicks);
+        clicks = clicks ? clicks + number : number;
+        console.log("OTHERs2", clicks);
+
+        stored[okey] = clicks;
+        storage.set(stored);
+        updateTotals();
+        setTimeout(function () {addPledgeFromOthers(getRandomInt(10))}, getRandomInt(3000));
+    });
+}
+
+questionDiv.appendChild(add('question__title', "Show your support for free..."));
+
+questionDiv.appendChild(add('mp-support', "The Guardian’s independent, investigative journalism takes a lot of time, money and hard work to produce. But we do it because we believe our perspective matters – because it might well be your perspective, too."));
+questionDiv.appendChild(add('mp-support2', "Your contributions help us survive, but even if you're not in a position to contribute, you can show your support by clicking the G."));
+questionDiv.appendChild(add('mp-support3', "Each click adds just 20p to your account and you can clear it any time you like once you reach £2"));
 questionDiv.appendChild(addButton());
 questionDiv.appendChild(add('mp-support4', "Pledge £0.20"));
 
-questionDiv.appendChild(addThanks('question__thanks__wrapper js-thanks', "thanks!!!"));
 questionDiv.appendChild(addTotals('question__totals__wrapper', "the totals will appear here..."));
+questionDiv.appendChild(addThanks('question__thanks__wrapper js-thanks', "Turn your pledge into a one off contribution here"));
 
 articleBody.appendChild(questionDiv);
 updateTotals();
+
+setTimeout(function () {addPledgeFromOthers(getRandomInt(10))}, getRandomInt(3000));
