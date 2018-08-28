@@ -108,21 +108,13 @@ function addMembership(clazz) {
     return wrap;
 }
 
-function addLogo(clazz, file) {
-    var wrap = document.createElement('div');
-    wrap.className = clazz;
+function addButton() {
 
-    var fb = document.createElement('img');
-    fb.className = 'question__onward';
-    fb.src = chrome.extension.getURL("FB.png");
+    var roundel = document.createElement('img');
+    roundel.className = 'roundel_button';
+    roundel.src = chrome.extension.getURL("Guardian_roundel_black.png");
 
-    var tw = document.createElement('img');
-    tw.className = 'question__onward';
-    tw.src = chrome.extension.getURL("TW.png");
-
-    wrap.appendChild(fb);
-    wrap.appendChild(tw);
-    return wrap;
+    return roundel;
 }
 
 function addIceCream(clazz, file) {
@@ -147,6 +139,8 @@ var questionData = questions[id];
 if (questionData.marketing) {
     questionDiv.appendChild(why());
 }
+
+questionDiv.appendChild(addButton());
 questionDiv.appendChild(add('question__text', questionData.question));
 questionData.answers.forEach(function (answerText) {
     questionDiv.appendChild(answer(answerText));
@@ -155,14 +149,6 @@ if (questionData.marketing) {
     questionDiv.appendChild(add('question__thanks js-thanks', 'That\'s crazy!  No-one could eat that much!'));
     questionDiv.appendChild(addIceCream('question__thanks__wrapper js-thanks'));
     questionDiv.appendChild(addManage('question__thanks__wrapper js-thanks'));
-} else {
-    if (questionData.membership) {
-        questionDiv.appendChild(add('question__thanks js-thanks', 'We appreciate your support.'));
-        questionDiv.appendChild(addMembership('question__thanks__wrapper js-thanks'));
-    } else {
-        questionDiv.appendChild(add('question__thanks js-thanks', '57% of readers agree with you, why not share your thoughts?'));
-        questionDiv.appendChild(addLogo('question__thanks__wrapper js-thanks'));
-    }
 }
 
 articleBody.appendChild(questionDiv);
