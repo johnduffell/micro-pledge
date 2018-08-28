@@ -1,8 +1,8 @@
 
 .question {
-background-color: rgb(150, 200, 255);
+background-color: white;
 position: relative;
-border: 0.2em dotted white;
+border: 0.1em solid lightgrey;
 padding: 0.5em;
 margin: 1em 1em;
     clear:left;
@@ -15,14 +15,14 @@ margin: 1em 1em;
 .question__answer {
     font-color: blue;
     padding: 0.5em;
-    margin: 0.5em;
+    margin: 1em;
     background-color: white;
     border: 1px solid black;
+    border-radius: 20%;
 }
 
 .question__thanks {
     font-color: black;
-    display: none;
     background-color: lightgreen;
     padding: 0.5em;
 }

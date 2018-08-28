@@ -45,6 +45,10 @@ function answer(text) {
                 answer.style.display = 'block';
             });
 
+            Array.prototype.forEach.call(document.getElementsByClassName('js-thanks-text'), function (answer) {
+                answer.textContent = "hohohoho";
+            });
+
             chrome.storage.local.get(function(data) {console.log(data);});
         });
         chrome.storage.local.get(function(data) {console.log(data);});
@@ -56,51 +60,15 @@ function answer(text) {
     return link;
 }
 
-function why() {
-    var why = document.createElement('a');
-    why.href = 'http://preview.gutools.co.uk/info/';
-
-    var whyText = document.createTextNode("Why do we ask?");
-    why.className = 'question__why';
-
-    why.appendChild(whyText);
-    return why;
-}
-
-function addManage(clazz) {
-    var wrap = document.createElement('div');
-    wrap.className = clazz;
-
-    var why = document.createElement('a');
-    why.href = 'http://preview.gutools.co.uk/info/';
-
-    var whyText = document.createTextNode("Undo");
-    why.className = 'question__onward';
-
-    why.appendChild(whyText);
-
-    var why2 = document.createElement('a');
-    why2.href = 'http://preview.gutools.co.uk/info/';
-
-    var whyText2 = document.createTextNode("Manage your data");
-    why2.className = 'question__onward';
-
-    why2.appendChild(whyText2);
-
-    wrap.appendChild(why);
-    wrap.appendChild(why2);
-    return wrap;
-}
-
-function addMembership(clazz) {
+function addThanks(clazz, text) {
     var wrap = document.createElement('div');
     wrap.className = clazz;
 
     var why = document.createElement('a');
     why.href = 'http://membership.theguardian.com/';
 
-    var whyText = document.createTextNode("Help fund our work by becoming a member");
-    why.className = 'question__onward';
+    var whyText = document.createTextNode(text);
+    why.className = 'question__thanks js-thanks-text';
 
     why.appendChild(whyText);
 
@@ -117,38 +85,13 @@ function addButton() {
     return roundel;
 }
 
-function addIceCream(clazz, file) {
-    var wrap = document.createElement('div');
-    wrap.className = clazz;
-
-    //var fb = document.createElement('img');
-    //fb.className = 'question__icecream';
-    //fb.src = chrome.extension.getURL("icecream.jpeg");
-
-    var tw = document.createElement('img');
-    tw.className = 'question__icecream';
-    tw.src = chrome.extension.getURL("icecream.gif");
-
-    //wrap.appendChild(fb);
-    wrap.appendChild(tw);
-    return wrap;
-}
-
 var questionData = questions[id];
-
-if (questionData.marketing) {
-    questionDiv.appendChild(why());
-}
 
 questionDiv.appendChild(addButton());
 questionDiv.appendChild(add('question__text', questionData.question));
 questionData.answers.forEach(function (answerText) {
     questionDiv.appendChild(answer(answerText));
 });
-if (questionData.marketing) {
-    questionDiv.appendChild(add('question__thanks js-thanks', 'That\'s crazy!  No-one could eat that much!'));
-    questionDiv.appendChild(addIceCream('question__thanks__wrapper js-thanks'));
-    questionDiv.appendChild(addManage('question__thanks__wrapper js-thanks'));
-}
+questionDiv.appendChild(addThanks('question__thanks__wrapper js-thanks', "thanks!!!"));
 
 articleBody.appendChild(questionDiv);
