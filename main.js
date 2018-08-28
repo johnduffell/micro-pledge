@@ -61,6 +61,8 @@ function updateTotals() {
         if (total * pledgeIncrement >= pledgePaymentThreshold) {
             Array.prototype.forEach.call(document.getElementsByClassName('js-thanks'), function (answer) {
                 answer.style.display = 'block';
+                // make the amount spot on rather than just 2 pounts
+                answer['amount'] = total * pledgeIncrement
             });
         }
 
@@ -77,7 +79,17 @@ function addThanks(clazz, text) {
     wrap.className = clazz;
 
     var why = document.createElement('a');
-    why.href = 'https://support.theguardian.com/contribute/one-off?contributionValue=2&contribType=ONE_OFF&currency=GBP';
+    why.href = '#';
+    why.addEventListener('click', function (event) {
+        location.href = 'https://support.theguardian.com/contribute/one-off?contributionValue='+wrap['amount']+'&contribType=ONE_OFF&currency=GBP';
+
+        // make a blank storage zone
+        var stored = {};
+        stored[key] = JSON.stringify({});
+        storage.set(stored);
+
+        event.preventDefault()
+    });
 
     var whyText = document.createTextNode(text);
     why.className = 'question__thanks js-thanks-text';
