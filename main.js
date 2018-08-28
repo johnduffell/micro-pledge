@@ -1,5 +1,5 @@
 var storage = chrome.storage.local;
-storage.clear;
+//
 
 var key = 'JOHN';
 
@@ -10,9 +10,9 @@ var questionDiv = document.createElement("div");
 questionDiv.className = 'question';
 
 // make a blank storage zone
-var stored = {};
-stored[key] = JSON.stringify({});
-storage.set(stored);
+// var stored = {};
+// stored[key] = JSON.stringify({});
+// storage.set(stored);
 
 // log it
 chrome.storage.local.get(function(data) {console.log(data);});
@@ -33,19 +33,21 @@ function answer(link) {
     link.addEventListener('click', function () {
         storage.get(key, function (stored) {
             var clicks = JSON.parse(stored[key]);
-            clicks[id] = 'clicked';
+            console.log("hi", clicks);
+            clicks[id] = clicks[id] ? clicks[id] + 1 : 1;
+            var total = Object.values(clicks).reduce(function (a, b) { return a + b}, 0);
             stored[key] = JSON.stringify(clicks);
             storage.set(stored);
-            Array.prototype.forEach.call(document.getElementsByClassName('js-answer'), function (answer) {
-                answer.style.display = 'none';
-            });
+            //Array.prototype.forEach.call(document.getElementsByClassName('js-answer'), function (answer) {
+            //    answer.style.display = 'none';
+            //});
 
             Array.prototype.forEach.call(document.getElementsByClassName('js-thanks'), function (answer) {
                 answer.style.display = 'block';
             });
 
-            Array.prototype.forEach.call(document.getElementsByClassName('js-thanks-text'), function (answer) {
-                answer.textContent = "hohohoho "+stored;
+            Array.prototype.forEach.call(document.getElementsByClassName('js-totals'), function (answer) {
+                answer.textContent = "you have pledged "+clicks[id] + " times to this article and " + total + " overall";
             });
 
             chrome.storage.local.get(function(data) {console.log(data);});
@@ -72,6 +74,22 @@ function addThanks(clazz, text) {
     return wrap;
 }
 
+function addTotals(clazz, text) {
+    var wrap = document.createElement('div');
+    wrap.className = clazz;
+
+    var why = document.createElement('a');
+    why.href = 'http://membership.theguardian.com/';
+
+    var whyText = document.createTextNode(text);
+    why.className = 'question__totals js-totals';
+
+    why.appendChild(whyText);
+
+    wrap.appendChild(why);
+    return wrap;
+}
+
 function addButton() {
 
     var roundel = document.createElement('img');
@@ -88,5 +106,6 @@ var questionData = questions[id];
 questionDiv.appendChild(add('question__text', "Click the G if you feel this article was worthwhile"));
 questionDiv.appendChild(addButton());
 questionDiv.appendChild(addThanks('question__thanks__wrapper js-thanks', "thanks!!!"));
+questionDiv.appendChild(addTotals('question__totals__wrapper', "the totals will appear here..."));
 
 articleBody.appendChild(questionDiv);
