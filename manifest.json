@@ -1,6 +1,6 @@
 {
-  "name": "Guardian Questionnaire",
-  "description": "Find out what people think",
+  "name": "Guardian Micro Pledge",
+  "description": "Get people to pledge money and make a rolled up donation",
   "version": "1.0",
   "content_scripts": [
     {

@@ -6,7 +6,7 @@ var questions = {
         answers: ['Merkel', 'Tsipras'],
         membership: false
     },
-    "/world/2015/jul/07/migrant-dies-uk-bound-freight-shuttle-near-calais-france":
+    "/politics/2018/aug/28/theresa-may-says-a-no-deal-brexit-wouldnt-be-the-end-of-the-world":
     {
         marketing: false,
         question: "Do you think this article was informative?",
