@@ -33,14 +33,24 @@ function answer(link) {
     link.addEventListener('click', function () {
         storage.get(key, function (stored) {
             var clicks = JSON.parse(stored[key]);
-            console.log("hi", clicks);
+            console.log("hi1", clicks);
             clicks[id] = clicks[id] ? clicks[id] + 1 : 1;
+            console.log("hi2", clicks);
             var total = Object.values(clicks).reduce(function (a, b) { return a + b}, 0);
             stored[key] = JSON.stringify(clicks);
             storage.set(stored);
-            //Array.prototype.forEach.call(document.getElementsByClassName('js-answer'), function (answer) {
-            //    answer.style.display = 'none';
-            //});
+            updateTotals()
+        });
+    });
+
+    return link;
+}
+
+function updateTotals() {
+        storage.get(key, function (stored) {
+            var clicks = JSON.parse(stored[key]);
+            console.log("hi", clicks);
+            var total = Object.values(clicks).reduce(function (a, b) { return a + b}, 0);
 
             Array.prototype.forEach.call(document.getElementsByClassName('js-thanks'), function (answer) {
                 answer.style.display = 'block';
@@ -50,12 +60,8 @@ function answer(link) {
                 answer.textContent = "you have pledged "+clicks[id] + " times to this article and " + total + " overall";
             });
 
-            chrome.storage.local.get(function(data) {console.log(data);});
         });
-        chrome.storage.local.get(function(data) {console.log(data);});
-    });
 
-    return link;
 }
 
 function addThanks(clazz, text) {
@@ -101,11 +107,10 @@ function addButton() {
     return roundel;
 }
 
-var questionData = questions[id];
-
 questionDiv.appendChild(add('question__text', "Click the G if you feel this article was worthwhile"));
 questionDiv.appendChild(addButton());
 questionDiv.appendChild(addThanks('question__thanks__wrapper js-thanks', "thanks!!!"));
 questionDiv.appendChild(addTotals('question__totals__wrapper', "the totals will appear here..."));
 
 articleBody.appendChild(questionDiv);
+updateTotals();
