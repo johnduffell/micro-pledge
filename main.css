@@ -24,25 +24,52 @@ position: relative;
     display: block;
 }
 
-@keyframes example {
-    from {padding: 0.5em;}
-    to {padding: 1.2em;}
+.question__answer__outer {
+    text-align: center;
+    height: 160px;
+    position: relative;
+}
+
+.question__roundel {
+
+    position: absolute;
+    padding: 1em;
+    margin: 1em;
+    top: 0;
+    left: 200px;
+    z-index: 10;
 }
 
 .question__answer {
-    font-color: blue;
-    padding: 0.5em;
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    padding: 1em;
     margin: 1em;
-    background-color: white;
+    display: block;
     border: 1px solid black;
     border-radius: 50%;
-    /*animation-name: example;
-    animation-duration: 1s;
-    animation-iteration-count: infinite; */
+    background: #ffffff;
+    cursor: pointer;
+    box-shadow: 0 0 0 rgba(204,169,44, 0.4);
+    animation: pulse 2s infinite;
+    top: 0;
+    left: 200px;
 }
 
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 1px rgba(204,169,44, 0);
+    }
+    /*100% {
+        box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+    }*/
+}
 .question__thanks {
-    font-color: black;
     background-color: lightgreen;
     padding: 0.5em;
 }
@@ -70,4 +97,8 @@ position: relative;
 .question__why {
     float: right;
     font-size: small;
+}
+
+.mp-support4 {
+    float: right
 }

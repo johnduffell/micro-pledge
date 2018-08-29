@@ -33,8 +33,6 @@ function add(clazz, text) {
 }
 
 function addPledge(roundel) {
-    roundel.className = 'question__answer js-answer';
-
     roundel.addEventListener('click', function () {
         storage.get(key, function (stored) {
             var clicks = stored[key] ? JSON.parse(stored[key]) : {};
@@ -70,8 +68,12 @@ function updateTotals() {
 
         var otherclicks = stored[okey] ? JSON.parse(stored[okey]) : 0;
         Array.prototype.forEach.call(document.getElementsByClassName('js-totals'), function (answer) {
-            answer.textContent = "you have pledged "+renderAmount(ourclicks) + " to this article and "
-                + renderAmount(total) + " overall.  Overall pledges is " + renderAmount(otherclicks);
+            while (answer.firstChild) {
+                answer.firstChild.remove();
+            }
+            answer.appendChild(add("answer__total__article", "you have pledged "+renderAmount(ourclicks) + " to this article"));
+            answer.appendChild(add("answer__total__overall", "and "+ renderAmount(total) + " overall"));
+            answer.appendChild(add("answer__total__others", "Overall pledges is " + renderAmount(otherclicks)));
         });
 
     });
@@ -126,13 +128,19 @@ function addTotals(clazz, text) {
 
 function addButton() {
 
+    var roundeldivouter = document.createElement('div');
+    var roundeldiv = document.createElement('div');
     var roundel = document.createElement('img');
-    roundel.className = 'roundel_button';
     roundel.src = chrome.extension.getURL("Guardian_roundel_black.png");
 
-    addPledge(roundel);
+    roundeldiv.className = 'question__answer';
+    roundeldivouter.className = 'question__answer__outer';
+    roundel.className = 'question__roundel js-answer';
 
-    return roundel;
+    addPledge(roundel);
+    roundeldivouter.appendChild(roundel);
+    roundeldivouter.appendChild(roundeldiv);
+    return roundeldivouter;
 }
 
 function getRandomInt(max) {
@@ -158,7 +166,7 @@ questionDiv.appendChild(add('question__title', "Show your support for free..."))
 
 questionDiv.appendChild(add('mp-support', "The Guardian’s independent, investigative journalism takes a lot of time, money and hard work to produce. But we do it because we believe our perspective matters – because it might well be your perspective, too."));
 questionDiv.appendChild(add('mp-support2', "Your contributions help us survive, but even if you're not in a position to contribute, you can show your support by clicking the G."));
-questionDiv.appendChild(add('mp-support3', "Each click adds just 20p to your account and you can clear it any time you like once you reach £2"));
+questionDiv.appendChild(add('mp-support3', "Each click adds just 20p to your pledge total and you can clear it any time you like once you reach £2"));
 questionDiv.appendChild(addButton());
 questionDiv.appendChild(add('mp-support4', "Pledge £0.20"));
 
