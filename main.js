@@ -3,7 +3,7 @@ var storage = chrome.storage.local;
 
 var key = 'myPledges';
 
-var okey = 'othersPledges';
+var okey = 'othersPledges2';
 
 var id = document.location.pathname;
 
@@ -83,19 +83,23 @@ function updatePersonalTotals() {
             }
 
             var added = document.createElement('div');
-            var addedText1 = document.createTextNode("you have pledged ");
+            var addedText1 = document.createTextNode("Your pledge for this article: ................................. ");
             var addedSpan = document.createElement('span');
             addedSpan.appendChild(document.createTextNode(renderAmount(ourclicks)));
-            var addedText2 = document.createTextNode(" to this article");
+            var addedText2 = document.createTextNode("");
             added.className = "answer__total__article";
 
             added.appendChild(addedText1);
             added.appendChild(addedSpan);
             added.appendChild(addedText2);
 
-            answer.appendChild(added);
-            answer.appendChild(add("answer__total__overall", "and " + renderAmount(total) + " overall"));
-            answer.appendChild(add("answer__total__others", "Overall pledges on theguardian.com this week are " + renderAmount(otherclicks)));
+            if(ourclicks) {
+                answer.appendChild(added);
+            }
+            if(total) {
+                answer.appendChild(add("answer__total__overall", "Your total pledges: .............................................. " + renderAmount(total) + ""));
+            }
+            answer.appendChild(add("answer__total__others", "Overall pledges on theguardian.com this week: ... " + renderAmount(otherclicks)));
         });
 
     });
@@ -106,7 +110,7 @@ function updateGlobalTotals(pledgeShouldBeUpdated) {
 
         var otherclicks = stored[okey] ? JSON.parse(stored[okey]) : 0;
         Array.prototype.forEach.call(document.getElementsByClassName('js-totals'), function (answer) {
-            answer.replaceChild(add("answer__total__others", "Overall pledges on theguardian.com this week are " + renderAmount(otherclicks)),answer.lastChild);
+            answer.replaceChild(add("answer__total__others", "Overall pledges on theguardian.com this week: ... " + renderAmount(otherclicks)),answer.lastChild);
         });
 
     });
@@ -114,7 +118,7 @@ function updateGlobalTotals(pledgeShouldBeUpdated) {
 }
 
 function renderAmount(clicks) {
-    return "£" + (clicks * pledgeIncrement).toFixed(2)
+    return (clicks * pledgeIncrement).toLocaleString('en-GB', { style: 'currency', currency: 'GBP' })
 }
 
 function addThanks(clazz, text) {
@@ -197,10 +201,10 @@ function addPledgeFromOthers(number) {
 
 questionDiv.appendChild(add('question__title', "Show your support for free..."));
 
-questionDiv.appendChild(add('mp-support', "The Guardian’s independent, investigative journalism takes a lot of time, money and hard work to produce. But we do it because we believe our perspective matters – because it might well be your perspective, too."));
-questionDiv.appendChild(add('mp-support2', "Your contributions help us survive, but even if you're not in a position to contribute, you can show your support by clicking the G."));
-questionDiv.appendChild(add('mp-support-highlight', "Each click adds just 20p"));
-questionDiv.appendChild(add('mp-support3', " to your pledge total and you can clear it any time you like, once you reach £2"));
+//questionDiv.appendChild(add('mp-support', "The Guardian’s independent, investigative journalism takes a lot of time, money and hard work to produce. But we do it because we believe our perspective matters – because it might well be your perspective, too."));
+// questionDiv.appendChild(add('mp-support2', "Your contributions help us survive, but even if you're not in a position to contribute, you can show your support by clicking the G."));
+// questionDiv.appendChild(add('mp-support-highlight', "Each click adds just 20p"));
+// questionDiv.appendChild(add('mp-support3', " to your pledge total and you can clear it any time you like, once you reach £2"));
 questionDiv.appendChild(addButton());
 questionDiv.appendChild(add('mp-support4', "Pledge £0.20"));
 
