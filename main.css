@@ -31,7 +31,7 @@ position: relative;
 }
 
 .question__roundel {
-
+    cursor: pointer;
     position: absolute;
     padding: 1em;
     margin: 1em;
@@ -69,8 +69,9 @@ position: relative;
         box-shadow: 0 0 0 0 rgba(204,169,44, 0);
     }*/
 }
-.question__thanks {
-    background-color: lightgreen;
+.question__thanks{
+    background-color: #ffe500;
+    color: #121212 !important;
     padding: 0.5em;
 }
 
@@ -100,5 +101,33 @@ position: relative;
 }
 
 .mp-support4 {
-    float: right
+    float: right;
+    position: relative;
+    top: -48px;
+    left: -292px;
+}
+/* TODO: proper cssp once proper templating has been put in place */
+
+.mp-support3 {
+    display: inline;
+}
+
+.mp-support-highlight {
+    background-color: #ffe500;
+    display: inline;
+}
+
+.answer__total__article span {
+    background-color: transparent;
+    animation: flash-n-fade 1s 1;
+}
+
+@keyframes flash-n-fade {
+    from {
+        background-color: #ffe500;
+    }
+
+    to {
+        background-color: transparent;
+    }
 }
